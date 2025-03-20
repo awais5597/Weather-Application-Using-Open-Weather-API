@@ -21,6 +21,11 @@ export const TEXT = {
     DEFAULT_MESSAGE: 'Enter a city name and click Search to see weather information.',
     TRY_DIFFERENT: 'Please try a different city or check your connection.',
   },
+  API: {
+    SELECTOR_LABEL: 'Historical data source:',
+    OPEN_METEO: 'Open-Meteo (Free)',
+    OPENWEATHER: 'OpenWeather (Paid)',
+  },
   ERRORS: {
     FETCH_FAILED: 'Failed to fetch weather data',
     HISTORICAL_FAILED: 'Failed to fetch historical weather data. Try a different date.',

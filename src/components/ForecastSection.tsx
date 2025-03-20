@@ -1,17 +1,11 @@
 import React from 'react';
+import { useWeather } from '../context/WeatherContext';
 import WeatherCard from './WeatherCard';
 import { TEXT } from '@/constants';
 
 const ForecastSection: React.FC = () => {
+  const { forecastData } = useWeather();
   
-  const forecastData = [
-    { day: 'Monday', icon: '01d', highTemp: 25, lowTemp: 15 },
-    { day: 'Tuesday', icon: '02d', highTemp: 22, lowTemp: 14 },
-    { day: 'Wednesday', icon: '03d', highTemp: 20, lowTemp: 13 },
-    { day: 'Thursday', icon: '04d', highTemp: 18, lowTemp: 12 },
-    { day: 'Friday', icon: '09d', highTemp: 21, lowTemp: 16 },
-  ];
-
   if (!forecastData || forecastData.length === 0) {
     return (
       <div className="p-6 pt-4 border-t border-gray-100">

@@ -1,25 +1,45 @@
 import React from 'react';
 import { Wind, Droplet, CloudRain, ChevronDown, ChevronUp } from 'lucide-react';
+import { useWeather } from '../context/WeatherContext';
 import ForecastSection from './ForecastSection';
 import { weatherIcons } from '../constants/weatherIcons';
+import { TEXT } from '@/constants';
 
 const CurrentWeather: React.FC = () => {
-  const expanded = false;
-  const setExpanded = () => {};
-  const weatherData = {
-    city: 'Sample City',
-    country: 'Sample Country',
-    date: new Date(),
-    temp: 25,
-    description: 'Clear sky',
-    wind_speed: 10,
-    humidity: 50,
-    precipitation: 20,
-    icon: '01d'
-  };
-  const tempUnit = '°C';
-  const speedUnit = 'km/h';
-
+  const { expanded, setExpanded, currentWeather, historicalData, unit, loading, error } = useWeather();
+  
+  // Use historical data if available, otherwise use current
+  const weatherData = historicalData || currentWeather;
+  const tempUnit = unit === 'celsius' ? '°C' : '°F';
+  const speedUnit = unit === 'celsius' ? 'km/h' : 'mph';
+  
+  if (loading) {
+    return (
+      <div className="bg-white rounded-xl shadow-md p-6 flex items-center justify-center">
+        <div className="text-lg text-gray-500">{TEXT.WEATHER.LOADING_MESSAGE}</div>
+      </div>
+    );
+  }
+  
+  if (error) {
+    return (
+      <div className="bg-white rounded-xl shadow-md p-6">
+        <div className="text-lg text-red-500">Error: {error}</div>
+        <p className="text-gray-600 mt-2">{TEXT.WEATHER.TRY_DIFFERENT}</p>
+      </div>
+    );
+  }
+  
+  if (!weatherData) {
+    return (
+      <div className="bg-white rounded-xl shadow-md p-6">
+        <div className="text-lg text-gray-500">
+        {TEXT.WEATHER.DEFAULT_MESSAGE}
+        </div>
+      </div>
+    );
+  }
+  
   const dateOptions: Intl.DateTimeFormatOptions = { 
     weekday: 'long',
     year: 'numeric', 
@@ -56,21 +76,21 @@ const CurrentWeather: React.FC = () => {
             <div className="bg-blue-50 p-3 rounded-lg flex items-center">
               <Wind className="h-5 w-5 text-blue-500 mr-2" />
               <div>
-                <div className="text-xs text-gray-500">Wind</div>
+                <div className="text-xs text-gray-500">{TEXT.WEATHER.WIND}</div>
                 <div className="font-medium">{weatherData.wind_speed} {speedUnit}</div>
               </div>
             </div>
             <div className="bg-blue-50 p-3 rounded-lg flex items-center">
               <Droplet className="h-5 w-5 text-blue-500 mr-2" />
               <div>
-                <div className="text-xs text-gray-500">Humidity</div>
+                <div className="text-xs text-gray-500">{TEXT.WEATHER.HUMIDITY}</div>
                 <div className="font-medium">{weatherData.humidity}%</div>
               </div>
             </div>
             <div className="bg-blue-50 p-3 rounded-lg flex items-center">
               <CloudRain className="h-5 w-5 text-blue-500 mr-2" />
               <div>
-                <div className="text-xs text-gray-500">Precipitation</div>
+                <div className="text-xs text-gray-500">{TEXT.WEATHER.LOADING_MESSAGE}</div>
                 <div className="font-medium">{weatherData.precipitation || 0}%</div>
               </div>
             </div>
@@ -79,7 +99,7 @@ const CurrentWeather: React.FC = () => {
       </div>
       
       <div 
-        onClick={() => setExpanded()}
+        onClick={() => setExpanded(!expanded)}
         className="bg-gray-50 py-3 px-6 flex items-center justify-center cursor-pointer hover:bg-gray-100 transition-colors"
       >
         <span className="text-sm font-medium text-gray-700 mr-2">
