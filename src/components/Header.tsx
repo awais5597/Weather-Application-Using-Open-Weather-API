@@ -1,8 +1,11 @@
 import React from 'react';
 import { Sun, Thermometer } from 'lucide-react';
+import { useWeather } from '../context/WeatherContext';
 import { TEXT } from '@/constants';
 
 const Header: React.FC = () => {
+  const { unit, setUnit } = useWeather();
+  
   return (
     <header className="flex flex-col sm:flex-row justify-between items-center mb-8">
       <div className="flex items-center mb-4 sm:mb-0">
@@ -11,10 +14,11 @@ const Header: React.FC = () => {
       </div>
       <div className="flex items-center">
         <button 
+          onClick={() => setUnit(unit === 'celsius' ? 'fahrenheit' : 'celsius')}
           className="flex items-center bg-white rounded-lg shadow px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
         >
           <Thermometer className="h-4 w-4 mr-2" />
-          °C
+          {unit === 'celsius' ? '°C' : '°F'}
         </button>
       </div>
     </header>
