@@ -1,9 +1,10 @@
+import { WeatherProvider } from '@/context/WeatherContext.tsx';
+import Home from '@/pages/Home.tsx';
+
 function App() {
   return (
-    <>
-      <p className="text-blue-600">Weather App</p>
-    </>
-  )
+      <Home />
+  );
 }
 
-export default App
+export default App;
