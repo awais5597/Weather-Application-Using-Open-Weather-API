@@ -36,4 +36,12 @@ export const TEXT = {
   FOOTER: {
     MESSAGE: 'Powered by OpenWeather API • Created with ❤️ using React, Vite & Tailwind CSS'
   },
+  INFO_CARD: {
+    QUESTION: 'Did you know?',
+    NEW_FACT: 'New Fact',
+  },
+  FORECAST: {
+    TITLE: '5-Day Forecast',
+    NO_DATA: 'No forecast data available',
+  }
 };

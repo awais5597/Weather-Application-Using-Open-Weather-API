@@ -18,6 +18,7 @@ const Home: React.FC = () => {
       <Header />
       <SearchSection />
       <CurrentWeather />
+      <InfoCard />
       <Footer />
     </div>
   );
